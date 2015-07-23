@@ -4,6 +4,7 @@
 # Implementation of layer interface for
 # fully connected feedforward multilayer perceptron
 # retains super initializer
+# weights and biases not set by default
 # 
 
 # system libraries
@@ -14,7 +15,13 @@ import numpy as np
 
 
 class mlp(layers.layer):
-    
+
+    def __init__(self, size, activ):
+        super(mlp, self).__init__(size, activ)
+        
+        self.type_ = layers.type_mlp
+        self.b = np.random.rand(size, 1)
+        
     # Implementation of layer interface for
     # fully connected feedforward multilayer perceptron
     def forward(self, incoming_activations):
@@ -23,8 +30,16 @@ class mlp(layers.layer):
         self.x = self.activ.func(self.z)
         return self.x
 
+    # set next_ layer to instance var.
+    # prepend self to next_.
+    # caller beware: will potentially overwrite next_'s weights
+    def append(self, next_):
+        self.next_ = next
+        next_.prepend(self)
 
-    def backward(self, mu):
-        return mu
-    
-        
+    # set prev layer to instance var.
+    # initialize the weights as random between the layers
+    # caller beware: will overwrite self's weights
+    def prepend(self, prev):
+        self.prev = prev
+        self.w = np.random.rand(self.size, prev.size)
