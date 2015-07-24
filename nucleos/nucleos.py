@@ -3,7 +3,7 @@
 # 
 # Network module that defines a network. sizes parameter determines
 # the number of nodes in each respective layer. layers by default
-# consist of an input_ and mlps with sigmoid activations. 
+# consist of an input_ and mlps with sigmoid activations.
 # 
 
 
@@ -14,15 +14,12 @@ import activations
 # third party libraries
 import numpy as np
 
-# class for the neural network. initialized with list of layer sizes
 class Network(object):
 
-    # initializer creates layers given network and randomizes weights
-    # and biases according to preceding layer
     def __init__(self, sizes):
 
-        it = iter(sizes)                                # iterator over the sizes
-        self.root = input_(next(it))                    # first is mandatory input layer              
+        it = iter(size)
+        self.root = input_(next(it))              
         
         for size in it:
             next_layer = mlp(size, activations.sigmoid)

@@ -5,6 +5,7 @@
 # input layer. retains super intitializer.
 # no weight or bias caculations
 # no backward propagation
+# only append, no prepend (assuming this is the first layer)
 # 
 
 # system libraries
@@ -15,12 +16,12 @@ import numpy as np
 
 class input_(layers.layer):
     
-    def __init__(self, size, activ):
-        super(input_, self).__init__(size, activ)
+    def __init__(self, size):
+        super(input_, self).__init__(size, None)
         self.type_ = layers.type_input
 
     # Implementation of layer interface
-    # for input vector layer
+    # for input vector layer, no calculations
     def forward(self, x):
         self.x = x
         return x
@@ -30,4 +31,4 @@ class input_(layers.layer):
     # caller beware: may potentially overwrite next_'s weights
     def append(self, next_):
         self.next_ = next_
-        next_.preprend(self)
+        next_.prepend(self)

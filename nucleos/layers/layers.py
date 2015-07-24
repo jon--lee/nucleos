@@ -11,14 +11,17 @@
 # instance variables
 # weights and biases not set by default
 #
+# all layers implement the LayerIterator class for forward
+# propagation iteration
+# 
 
 
 # system libraries
 # internal libraries
 # third party libraries
 import numpy as np
-
-class layer():
+from iterators import LayerIterator
+class layer(object):
 
     
     def __init__(self, size, activ):
@@ -58,8 +61,13 @@ class layer():
     def prepend(self, prev):
         raise NotImplementedError
 
+    # iterable to iterate forwards on across layers
+    def __iter__(self):
+        return LayerIterator(self)
 
 
+# types of layers to specify layer type property
+# available in layers module
 type_gen = "gen"
 type_input = "in"
 type_mlp = "mlp"

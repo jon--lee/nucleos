@@ -4,7 +4,10 @@
 # Implementation of layer interface for
 # fully connected feedforward multilayer perceptron
 # retains super initializer
-# weights and biases not set by default
+# weights not initialized by default but biases are as random
+# append should be only interface for joining adjacent layers
+# do NOT use prepend, append will prepend for you.
+# prepend assigns random and appropriately-sized weights
 # 
 
 # system libraries
@@ -18,7 +21,6 @@ class mlp(layers.layer):
 
     def __init__(self, size, activ):
         super(mlp, self).__init__(size, activ)
-        
         self.type_ = layers.type_mlp
         self.b = np.random.rand(size, 1)
         
