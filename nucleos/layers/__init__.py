@@ -1,2 +1,2 @@
-from mlps import mlp
-from inputs_ import input_
+from mlps import *
+from inputs_ import *

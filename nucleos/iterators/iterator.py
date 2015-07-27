@@ -11,10 +11,11 @@
 # internal libraries
 # third party libraries
 
+
 class Iterator(object):
-    def __init__(self):
-        raise NotImplementedError
-    def next(self):
+    def __init__(self, *args):
         raise NotImplementedError
     def __iter__(self):
+        raise NotImplementedError
+    def next(self):
         raise NotImplementedError

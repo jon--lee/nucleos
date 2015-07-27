@@ -18,9 +18,11 @@
 
 # system libraries
 # internal libraries
+from iterators import LayerIterator
 # third party libraries
 import numpy as np
-from iterators import LayerIterator
+
+
 class layer(object):
 
     
@@ -39,7 +41,8 @@ class layer(object):
         self.prev = None    # layer that comes before this
         
         self.type_ = type_gen
-        
+    
+
     # propagate forward while recording vectors for optimization
     # given activations of previous layer
     def forward(self, incoming_activations):    

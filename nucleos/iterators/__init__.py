@@ -1,1 +1,1 @@
-from layer_iterator import LayerIterator
+from layer_iterator import *

@@ -18,9 +18,18 @@ from iterator import Iterator
 # third party libraries
 
 class LayerIterator(Iterator):
-    def __init__(self, root_layer):
-        self.root = root_layer
 
+    # initializer a layer iterator just like
+    # a linked list where the iterator has a root
+    # object
+    def __init__(self, root):
+        self.root = root
+
+    def __iter__(self):
+        return self
+
+    # return the next forward propagation of the layer
+    # unless the layer is none then stop iteration.
     def next(self):
         if self.root is None:
             raise StopIteration
@@ -28,6 +37,3 @@ class LayerIterator(Iterator):
             temp = self.root
             self.root = self.root.next_
             return temp
-    
-    def __iter__(self):
-        return self

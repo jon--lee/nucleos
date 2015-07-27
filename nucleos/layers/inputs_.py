@@ -14,6 +14,7 @@ import layers
 # third party libraries
 import numpy as np
 
+
 class input_(layers.layer):
     
     def __init__(self, size):

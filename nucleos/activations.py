@@ -1,7 +1,5 @@
 # system libraries
-
 # internal libraries
-
 # third party libraries
 import numpy as np
 

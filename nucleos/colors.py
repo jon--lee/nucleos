@@ -1,3 +1,9 @@
+# 
+# @author jonathan_lee@berkeley.edu (Jonathan N. Lee)
+# 
+# Don't bother reading this. These are just color codes.
+#
+
 header = '\033[95m'
 blue = '\033[94m'
 green = '\033[92m'

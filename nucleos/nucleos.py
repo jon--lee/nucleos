@@ -11,27 +11,37 @@
 # internal libraries
 from layers import mlp, input_
 import activations
+import colors
 # third party libraries
 import numpy as np
+
+def output(s=""):
+    print colors.green + str(s) + colors.end
+
+# ITERATOR CODE UNTESTED, TEST LATER
+
 
 class Network(object):
 
     def __init__(self, sizes):
 
-        it = iter(size)
-        self.root = input_(next(it))              
-        
+        it = iter(sizes)
+        self.start = input_(next(it))              
+        layer = self.start
         for size in it:
-            next_layer = mlp(size, activations.sigmoid)
-            self.root.append(next_layer)
+            layer.append( mlp(size, activations.sigmoid) )
+            layer = layer.next_
+        self.end = layer
 
-    def forward(x):
-        for layer in layers:
+    def forward(self, x):
+        it = iter(self.start)
+        for layer in it:
             x = layer.forward(x)
         return x
-            
-    def append(layer):
-        self.layers.append(layer)
+
+    def append(self, layer):
+        self.end.append(layer)
+        self.end = self.end.next_
 
 
 

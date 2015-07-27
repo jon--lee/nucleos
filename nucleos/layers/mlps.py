@@ -36,7 +36,7 @@ class mlp(layers.layer):
     # prepend self to next_.
     # caller beware: will potentially overwrite next_'s weights
     def append(self, next_):
-        self.next_ = next
+        self.next_ = next_
         next_.prepend(self)
 
     # set prev layer to instance var.
