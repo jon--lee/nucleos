@@ -10,16 +10,16 @@
 
 # system libraries
 # internal libraries
-import layers
+import layer
 # third party libraries
 import numpy as np
 
 
-class input_(layers.layer):
+class Input(layer.Layer):
     
     def __init__(self, size):
-        super(input_, self).__init__(size, None)
-        self.type_ = layers.type_input
+        super(Input, self).__init__(size, None)
+        self.type_ = layer.type_input
 
     # Implementation of layer interface
     # for input vector layer, no calculations

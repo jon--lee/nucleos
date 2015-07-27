@@ -8,7 +8,7 @@ import numpy as np
 # func which is the regular function, deriv which is the
 # derivative of the function, and optional fast_deriv which
 # is an optimized form of div that takes a different param
-class activ(object):
+class Activ(object):
     
     def func(self,x):
         raise NotImplementedError
@@ -20,7 +20,7 @@ class activ(object):
 
 # Implements activ for LINEAR function
 # no fast derivative
-class Lin(activ):
+class Lin(Activ):
     
     def func(self, x):
         return x

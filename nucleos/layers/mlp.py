@@ -12,16 +12,16 @@
 
 # system libraries
 # internal libraries
-import layers
+import layer
 # third party libraries
 import numpy as np
 
 
-class mlp(layers.layer):
+class MLP(layer.Layer):
 
     def __init__(self, size, activ):
-        super(mlp, self).__init__(size, activ)
-        self.type_ = layers.type_mlp
+        super(MLP, self).__init__(size, activ)
+        self.type_ = layer.type_mlp
         self.b = np.random.rand(size, 1)
         
     # Implementation of layer interface for

@@ -23,7 +23,7 @@ from iterators import LayerIterator
 import numpy as np
 
 
-class layer(object):
+class Layer(object):
 
     
     def __init__(self, size, activ):

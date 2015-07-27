@@ -3,13 +3,13 @@
 # 
 # Network module that defines a network. sizes parameter determines
 # the number of nodes in each respective layer. layers by default
-# consist of an input_ and mlps with sigmoid activations.
+# consist of an inputs and mlps with sigmoid activations.
 # 
 
 
 # system libraries
 # internal libraries
-from layers import mlp, input_
+from layers import MLP, Input
 import activations
 import colors
 # third party libraries
@@ -26,10 +26,10 @@ class Network(object):
     def __init__(self, sizes):
 
         it = iter(sizes)
-        self.start = input_(next(it))              
+        self.start = Input(next(it))              
         layer = self.start
         for size in it:
-            layer.append( mlp(size, activations.sigmoid) )
+            layer.append( MLP(size, activations.sigmoid) )
             layer = layer.next_
         self.end = layer
 
