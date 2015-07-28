@@ -27,9 +27,22 @@ class Input(layer.Layer):
         self.x = x
         return x
 
+    # do nothing becaus ethere is no backward
+    # propagation calculation for input layer
+    # return None to indicate end of propagation
+    def backward(self, *args):
+        return None
+
     # assign to instance var next_
     # prepend self to next_
     # caller beware: may potentially overwrite next_'s weights
     def append(self, next_):
         self.next_ = next_
         next_.prepend(self)
+
+
+    # there are no incoming parameters for the 
+    # input layer
+    def randomize_parameters(self):
+        self.w = None
+        self.b = None

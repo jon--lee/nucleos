@@ -19,10 +19,13 @@ import numpy as np
 
 class MLP(layer.Layer):
 
+    # initialize mlp with type (as with all layers)
+    # and initialize the random biases
     def __init__(self, size, activ):
         super(MLP, self).__init__(size, activ)
         self.type_ = layer.type_mlp
         self.b = np.random.rand(size, 1)
+        self.delta_b = np.zeros(self.b.shape)
         
     # Implementation of layer interface for
     # fully connected feedforward multilayer perceptron
@@ -31,6 +34,16 @@ class MLP(layer.Layer):
         self.z = np.dot(self.w, self.a) + self.b
         self.x = self.activ.func(self.z)
         return self.x
+
+    def backward(self, mu):
+        self.delta_b += mu
+        self.delta_w += np.dot(mu, self.a.transpose())
+        if self.prev.z is not None:
+            mu = np.dot(self.w.transpose(), mu) * self.activ.deriv(self.prev.z)
+            return mu
+        else:
+            return None
+
 
     # set next_ layer to instance var.
     # prepend self to next_.
@@ -45,3 +58,14 @@ class MLP(layer.Layer):
     def prepend(self, prev):
         self.prev = prev
         self.w = np.random.rand(self.size, prev.size)
+        self.zero_deltas()
+
+    # randomize parameters for fully connected
+    # which is just random weights for each connectin
+    # with preceding layer and full vector of random biases
+    def randomize_parameters(self):
+        if self.prev is not None:
+            self.w = np.random.rand(self.size, prev.size)
+        self.b = np.random.rand(self.size, 1)
+
+
