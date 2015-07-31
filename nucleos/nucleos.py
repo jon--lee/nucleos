@@ -47,6 +47,14 @@ class NetworkBase(object):
         self.end.append(layer)
         self.end = self.end.next_
 
+    # pop the last layer off the network
+    # by setting end instance var to the 
+    # previous layer and removing the previous
+    # layers forward propagation to this
+    def pop(self):
+        self.end = self.end.prev
+        self.end.append(None)
+
     # train neural network based on training data
     # to optimize the weights. Abstract method
     # intended to be handled by implementing network
@@ -73,7 +81,11 @@ class NetworkBase(object):
         for layer in it:
             layer.zero_deltas()
 
+
+# Network class provides the implementation of NetworkBase's 
+# non implemented functions.
 class Network(NetworkBase):
+
 
     def train(self, training_set, epochs, alpha):
 

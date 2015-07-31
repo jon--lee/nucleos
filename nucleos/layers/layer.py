@@ -18,7 +18,7 @@
 
 # system libraries
 # internal libraries
-from iterators import LayerIterator
+from nucleos.iterators import LayerIterator
 # third party libraries
 import numpy as np
 
