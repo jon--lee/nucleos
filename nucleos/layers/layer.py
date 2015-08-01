@@ -100,5 +100,5 @@ class Layer(object):
 # types of layers to specify layer type property
 # available in layers module
 type_gen = "gen"
-type_input = "in"
+type_input = "input"
 type_mlp = "mlp"

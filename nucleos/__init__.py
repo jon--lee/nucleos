@@ -1,5 +1,5 @@
 from nucleos import *
-import activations
+from activations import *
 import colors
-import layers
+from layers import *
 import iterators

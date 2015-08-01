@@ -9,7 +9,6 @@ import numpy as np
 # derivative of the function, and optional fast_deriv which
 # is an optimized form of div that takes a different param
 class Activ(object):
-    
     def func(self,x):
         raise NotImplementedError
     def deriv(self,x):
@@ -21,18 +20,16 @@ class Activ(object):
 # Implements activ for LINEAR function
 # no fast derivative
 class Lin(Activ):
-    
     def func(self, x):
         return x
+    
     def deriv(self, x):
         return 1.0
-    fast_deriv = deriv
-    
+
     
 # Implements activ for SIGMOID (logistic) function
 # includes fast derivative
 class Sig():
-    
     def func(self, x):
         return 1.0 / (1.0 + np.exp(-x))
     
@@ -44,8 +41,11 @@ class Sig():
         return y * (1.0 - y)
 
 
-
 # EXPORTS of instances
 linear = Lin()
 sigmoid = Sig()
 
+types = {
+    "linear": Lin(),
+    "sigmoid": Sig()
+}

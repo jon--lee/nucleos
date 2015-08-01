@@ -26,7 +26,8 @@ class MLP(layer.Layer):
         self.type_ = layer.type_mlp
         self.b = np.random.rand(size, 1)
         self.delta_b = np.zeros(self.b.shape)
-        
+ 
+
     # Implementation of layer interface for
     # fully connected feedforward multilayer perceptron
     def forward(self, incoming_activations):
@@ -35,6 +36,12 @@ class MLP(layer.Layer):
         self.x = self.activ.func(self.z)
         return self.x
 
+
+    # Implementation of backward propagation
+    # intended to compute the delta weights/biases of
+    # incoming parameters for this layer only. Compute
+    # the mu for the previous layer as well assuming there is
+    # previous input to do so
     def backward(self, mu):
         self.delta_b += mu
         self.delta_w += np.dot(mu, self.a.transpose())
@@ -50,7 +57,9 @@ class MLP(layer.Layer):
     # caller beware: will potentially overwrite next_'s weights
     def append(self, next_):
         self.next_ = next_
-        next_.prepend(self)
+        if next_ is not None:
+            next_.prepend(self)
+
 
     # set prev layer to instance var.
     # initialize the weights as random between the layers
@@ -59,6 +68,7 @@ class MLP(layer.Layer):
         self.prev = prev
         self.w = np.random.rand(self.size, prev.size)
         self.zero_deltas()
+
 
     # randomize parameters for fully connected
     # which is just random weights for each connectin
