@@ -30,7 +30,7 @@ class Input(layer.Layer):
     # do nothing becaus ethere is no backward
     # propagation calculation for input layer
     # return None to indicate end of propagation
-    def backward(self, *args):
+    def _backward(self, *args):
         return None
 
     # assign to instance var next_
@@ -38,7 +38,7 @@ class Input(layer.Layer):
     # caller beware: may potentially overwrite next_'s weights
     def append(self, next_):
         self.next_ = next_
-        next_.prepend(self)
+        next_._prepend(self)
 
 
     # there are no incoming parameters for the 

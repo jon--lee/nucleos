@@ -42,7 +42,7 @@ class MLP(layer.Layer):
     # incoming parameters for this layer only. Compute
     # the mu for the previous layer as well assuming there is
     # previous input to do so
-    def backward(self, mu):
+    def _backward(self, mu):
         self.delta_b += mu
         self.delta_w += np.dot(mu, self.a.transpose())
         if self.prev.z is not None:
@@ -58,16 +58,16 @@ class MLP(layer.Layer):
     def append(self, next_):
         self.next_ = next_
         if next_ is not None:
-            next_.prepend(self)
+            next_._prepend(self)
 
 
     # set prev layer to instance var.
     # initialize the weights as random between the layers
     # caller beware: will overwrite self's weights
-    def prepend(self, prev):
+    def _prepend(self, prev):
         self.prev = prev
         self.w = np.random.rand(self.size, prev.size)
-        self.zero_deltas()
+        self._zero_deltas()
 
 
     # randomize parameters for fully connected

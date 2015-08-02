@@ -69,13 +69,13 @@ class NetworkBase(object):
     # applying the delta updates should always zero
     # out the delta weights
     # @param alpha              learning rate
-    def apply_updates(self, alpha):
+    def _apply_updates(self, alpha):
         raise NotImplementedError
 
     # iterate through each alyer and zero out
     # the weights, as handled by the implementations
     # of the given layers
-    def zero_deltas(self):
+    def _zero_deltas(self):
         raise NotImplementedError
 
     # iterate through each layer and save the weights
@@ -92,7 +92,9 @@ class NetworkBase(object):
     def load(self, file_path):
         raise NotImplementedError
 
-
+    # compute the cost given a 
+    def _compute_cost(self, training_set):
+        raise NotImplementedError
 
 
 
@@ -133,7 +135,7 @@ class Network(NetworkBase):
         self.costcurve = []
         alpha = float(alpha)
         n = len(training_set)
-        self.zero_deltas()
+        self._zero_deltas()
         for j in xrange(epochs):
             random.shuffle(training_set)
             self.update_batch(training_set, alpha)
@@ -148,29 +150,29 @@ class Network(NetworkBase):
         plt.show()
 
 
-    def update_batch(self, training_set, alpha):
+    def _update_batch(self, training_set, alpha):
         for x, y in training_set:
             self.forward(x)
             mu = costs.mean_square.deriv(self.end.x, y) *\
                 self.end.activ.deriv(self.end.z)
             root = self.end
             while root is not None:
-                mu = root.backward(mu)
+                mu = root._backward(mu)
                 root = root.prev
-        self.apply_updates(alpha)
+        self._apply_updates(alpha)
 
 
-    def apply_updates(self, alpha):
+    def _apply_updates(self, alpha):
         it = iter(self.start)
         for layer in it:
-            layer.apply_updates(alpha)
-            layer.zero_deltas()
+            layer._apply_updates(alpha)
+            layer._zero_deltas()
 
 
-    def zero_deltas(self):
+    def _zero_deltas(self):
         it = iter(self.start)
         for layer in it:
-            layer.zero_deltas()
+            layer._zero_deltas()
 
 
     def _compute_cost(self, training_set):
@@ -178,4 +180,4 @@ class Network(NetworkBase):
         for x, y in training_set:
             actual = self.forward(x)
             cost += np.linalg.norm(costs.mean_square.func(actual, y))
-        return cost
+        return cost / len(training_set)

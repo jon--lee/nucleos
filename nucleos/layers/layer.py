@@ -53,7 +53,7 @@ class Layer(object):
 
     # propagate backward while using vectors from forward
     # propagation given mu vector to be passed to next layer
-    def backward(self, mu):
+    def _backward(self, mu):
         raise NotImplementedError
     
     # use only this method to add a layer to the list
@@ -64,7 +64,7 @@ class Layer(object):
     # Do not call this method from a non-layer caller.
     # prepend function that should also establish
     # the weight connection between the adjacent layers.
-    def prepend(self, prev):
+    def _prepend(self, prev):
         raise NotImplementedError
 
     # handle randomization of weights and biases
@@ -79,7 +79,7 @@ class Layer(object):
     # the delta matrices should be the same shape
     # as the weight and bias matrices.
     # after update, deltas should be zeroed.
-    def apply_updates(self, alpha):
+    def _apply_updates(self, alpha):
         if self.b is not None and self.w is not None:
             self.b -= alpha * self.delta_b
             self.w -= alpha * self.delta_w
@@ -87,7 +87,7 @@ class Layer(object):
     # zero the delta matrices by setting them equal to
     # matrices of the same shape filled with zeros.
     # if they are none, just leave them as None
-    def zero_deltas(self):
+    def _zero_deltas(self):
         if self.w is not None and self.b is not None:
             self.delta_w = np.zeros(self.w.shape)
             self.delta_b = np.zeros(self.b.shape)
