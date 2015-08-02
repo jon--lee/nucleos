@@ -115,6 +115,7 @@ class Network(NetworkBase):
 
 
     def forward(self, x):
+        x = np.array(x)
         it = iter(self.start)
         for layer in it:
             x = layer.forward(x)
@@ -138,7 +139,7 @@ class Network(NetworkBase):
         self._zero_deltas()
         for j in xrange(epochs):
             random.shuffle(training_set)
-            self.update_batch(training_set, alpha)
+            self._update_batch(training_set, alpha)
 
             if monitor:
                 self.costcurve.append(self._compute_cost(training_set))
